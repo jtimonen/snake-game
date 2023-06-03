@@ -1,41 +1,34 @@
-import { gameBoard, blockSize, gameVariables} from './variables.js';
+import { gameBoard, initialSnake, gameVariables} from './variables.js';
+import {updateSnake, updateApple} from './objects.js'
 
 export function startGame() {
-  gameVariables.direction = 'Right';
-  gameVariables.lastMovedDirection = null;
-  gameVariables.snake = [
-    { top: 0, left: 0 }, // Head
-    { top: 0, left: -blockSize }, // Body part 1
-    { top: 0, left: -2 * blockSize }, // Body part 2
-  ];
-  gameVariables.apple = null;
-  gameVariables.score = 0;
-  document.getElementById('score').innerText = 'Score: 0';
-  document.getElementById('main-menu').style.display = 'none';
-  gameVariables.gameLoopId = setTimeout(gameLoop, 200);
-}
-
-export function gameOver() {
   clearTimeout(gameVariables.gameLoopId);
-  alert("Game Over");
-  document.getElementById('main-menu').style.display = 'block';
-  document.getElementById('score').innerText = "Score: " + gameVariables.score;
   resetGame();
+  document.getElementById('score').innerText = 'Score: 0';
+  document.getElementById('main-menu').style.visibility = 'hidden'; // invisible start button
+  gameVariables.gameLoopId = setTimeout(gameLoop, 200);
 }
 
 function resetGame() {
   gameVariables.direction = 'Right';
   gameVariables.lastMovedDirection = null;
-  gameVariables.snake = [{ top: 0, left: 0 }];
+  gameVariables.snake = JSON.parse(JSON.stringify(initialSnake));
   gameVariables.apple = null;
   gameVariables.score = 0;
+}
+
+export function gameOver() {
+  clearTimeout(gameVariables.gameLoopId);
+  alert("Game Over");
+  document.getElementById('main-menu').style.visibility = 'visible'; // Updated line
+  document.getElementById('score').innerText = "Score: " + gameVariables.score;
+  resetGame();
 }
 
 export function gameLoop() {
   if(updateSnake()){  // if updateSnake() returns true
     return gameOver();  // return immediately without scheduling a new loop
   }
-  
   updateApple();
   drawGame();
   gameVariables.gameLoopId = setTimeout(gameLoop, 200);
@@ -56,7 +49,7 @@ export function drawGame() {
     blockElem.style.left = `${block.left}px`;
     blockElem.className = 'block';
 
-    if(index === 0) { // If it's the head
+    if(index === 0) { // if it's the head
       blockElem.classList.add('head');
       blockElem.classList.add(gameVariables.direction.toLowerCase());
     }

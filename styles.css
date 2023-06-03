@@ -2,8 +2,14 @@
     position: relative;
     height: 300px;
     width: 300px;
-    border: 1px solid black;
+    border: 2px solid rgb(31, 29, 29);
 }
+
+#score {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    color: rgb(10, 9, 9);
+  }
 
 .block {
     position: absolute;
