@@ -1,0 +1,16 @@
+#game-board {
+    position: relative;
+    height: 300px;
+    width: 300px;
+    border: 1px solid black;
+}
+
+.block {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+}
+
+#main-menu {
+    /* display: none; */
+}
