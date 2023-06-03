@@ -1,5 +1,7 @@
 # snake-game
 
+![game image](https://github.com/jtimonen/snake-game/blob/main/img/img.png?raw=true)
+
 ### Running the game
 
 1. Clone or download this repo.
