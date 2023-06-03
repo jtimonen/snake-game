@@ -9,6 +9,9 @@
     position: absolute;
     width: 20px;
     height: 20px;
+    border-radius: 50%;  
+    background: linear-gradient(45deg, gray, darkgray); 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);  /* This adds a shadow */
 }
 
 #main-menu {
