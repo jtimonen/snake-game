@@ -5,6 +5,7 @@ var direction = 'Right';
 var lastMovedDirection = null;
 var snake = [{ top: 0, left: 0 }];
 var apple = null;
+var score = 0;
 
 function changeDirection(newDirection) {
   const opposite = {
@@ -18,8 +19,12 @@ function changeDirection(newDirection) {
     console.log("Can't go there!")
     return;
   }
-
-  direction = newDirection;
+  if(newDirection === 'Right' || newDirection === 'Left' || newDirection === 'Up' || newDirection === 'Down') {
+    direction = newDirection;
+  } else {
+    console.log("Unknown key pressed!")
+  }
+  return;
 }
 
 window.addEventListener('keydown', function(e) {
@@ -29,6 +34,12 @@ window.addEventListener('keydown', function(e) {
 
 function updateLastDirection(dir) {
   lastMovedDirection = dir;
+}
+
+function eatApple() {
+  apple = null; // remove the apple
+  score = score + 1;
+  console.log("Score:", score)
 }
 
 function updateSnake() {
@@ -41,7 +52,7 @@ function updateSnake() {
   snake.unshift(head);
 
   if(apple && apple.top === head.top && apple.left === head.left) { // eaten the apple
-    apple = null; // remove the apple
+    eatApple()
   } else {
     snake.pop(); // remove the tail
   }
