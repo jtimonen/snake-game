@@ -1,9 +1,15 @@
 import { gameBoard, blockSize, gameBoardSize, gameVariables} from './variables.js';
 
-
 export function startGame() {
-  clearTimeout(gameVariables.gameLoopId);
-  resetGame();
+  gameVariables.direction = 'Right';
+  gameVariables.lastMovedDirection = null;
+  gameVariables.snake = [
+    { top: 0, left: 0 }, // Head
+    { top: 0, left: -blockSize }, // Body part 1
+    { top: 0, left: -2 * blockSize }, // Body part 2
+  ];
+  gameVariables.apple = null;
+  gameVariables.score = 0;
   document.getElementById('score').innerText = 'Score: 0';
   document.getElementById('main-menu').style.display = 'none';
   gameVariables.gameLoopId = setTimeout(gameLoop, 200);
@@ -62,19 +68,6 @@ export function updateLastDirection(dir) {
   gameVariables.lastMovedDirection = dir;
 }
 
-
-
-function moveSnakeHead(head) {
-  if (gameVariables.direction === 'Right') head.left = (head.left + blockSize) % gameBoardSize;
-  if (gameVariables.direction === 'Down') head.top = (head.top + blockSize) % gameBoardSize;
-  if (gameVariables.direction === 'Left') head.left = (head.left - blockSize + gameBoardSize) % gameBoardSize;
-  if (gameVariables.direction === 'Up') head.top = (head.top - blockSize + gameBoardSize) % gameBoardSize;
-}
-
-function isSnakeEatingApple(head) {
-  return gameVariables.apple && gameVariables.apple.top === head.top && gameVariables.apple.left === head.left;
-}
-
 export function eatApple() {
   gameVariables.apple = null;
   gameVariables.score += 1;
@@ -116,27 +109,27 @@ export function isAppleInsideSnake(position) {
 
 export function drawGame() {
   gameBoard.innerHTML = '';
-  drawSnake();
-  drawApple();
-}
 
-function drawSnake() {
-  gameVariables.snake.forEach(function(block) {
+  // draw the snake
+  gameVariables.snake.forEach(function(block, index) {
     var blockElem = document.createElement('div');
     blockElem.style.top = `${block.top}px`;
     blockElem.style.left = `${block.left}px`;
     blockElem.className = 'block';
-    blockElem.style.background = 'gray';
-    blockElem.style.border = '1px solid black';
+
+    if(index === 0) { // If it's the head
+      blockElem.classList.add('head');
+      blockElem.classList.add(gameVariables.direction.toLowerCase());
+    }
+
     gameBoard.appendChild(blockElem);
   });
-}
 
-function drawApple() {
+  // draw the apple
   var appleElem = document.createElement('div');
   appleElem.style.top = `${gameVariables.apple.top}px`;
   appleElem.style.left = `${gameVariables.apple.left}px`;
   appleElem.className = 'block';
-  appleElem.style.background = 'red';
+  appleElem.style.backgroundColor = 'red';
   gameBoard.appendChild(appleElem);
 }

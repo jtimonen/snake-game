@@ -9,11 +9,58 @@
     position: absolute;
     width: 20px;
     height: 20px;
-    border-radius: 50%;  
-    background: linear-gradient(45deg, gray, darkgray); 
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);  /* This adds a shadow */
-}
-
-#main-menu {
-    /* display: none; */
-}
+    background-color: grey;
+    border: 1px solid black;
+    border-radius: 50%;  /* This makes the blocks round */
+  }
+  
+  .block.head::before,
+  .block.head::after {
+    content: '';
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    width: 6px;
+    height: 6px;
+  }
+  
+  .block.head.up::before,
+  .block.head.down::before {
+    left: 3px;
+  }
+  
+  .block.head.up::after,
+  .block.head.down::after {
+    right: 3px;
+  }
+  
+  .block.head.up::before,
+  .block.head.up::after {
+    bottom: 3px;
+  }
+  
+  .block.head.down::before,
+  .block.head.down::after {
+    top: 3px;
+  }
+  
+  .block.head.left::before,
+  .block.head.right::before {
+    top: 3px;
+  }
+  
+  .block.head.left::after,
+  .block.head.right::after {
+    bottom: 3px;
+  }
+  
+  .block.head.left::before,
+  .block.head.left::after {
+    right: 3px;
+  }
+  
+  .block.head.right::before,
+  .block.head.right::after {
+    left: 3px;
+  }
+  
