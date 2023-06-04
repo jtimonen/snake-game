@@ -2,7 +2,11 @@
 
 ![game image](https://github.com/jtimonen/snake-game/blob/main/img/img.png?raw=true)
 
-### Running the game
+### Playing
+
+[Play Game](https://jtimonen.github.io/snake-game/snake.html)
+
+### Running the game locally
 
 1. Clone or download this repo.
 2. Go to the source directory.
